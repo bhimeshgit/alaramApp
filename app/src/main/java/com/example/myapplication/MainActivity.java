@@ -47,12 +47,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    private void method3(){
 
-    }
-
-    private void method2(){
-
-    }
 
 }
