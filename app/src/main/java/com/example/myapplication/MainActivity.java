@@ -10,6 +10,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.myapplication.receiver.AlarmReceiver;
+
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
