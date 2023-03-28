@@ -1,6 +1,6 @@
 package com.example.myapplication.db;
 
-import androidx.room.ColumnInfo;
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -8,16 +8,16 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface OnDataBaseAction {
+public interface DietDao {
 
     @Query("SELECT * FROM "+DbConstance.DIET_TABLE)
-    List<DietEntity> getAllDietList();
+    LiveData<List<DietEntity>> getAllDietList();
 
     @Query("DELETE FROM "+ DbConstance.DIET_TABLE)
     void truncateTheList();
 
     @Insert
-    void insertDataIntoTaskList(DietEntity dietEntity);
+    void insertDietData(DietEntity dietEntity);
 
     @Query("DELETE FROM "+DbConstance.DIET_TABLE+" WHERE dietId = :dietId")
     void deleteTaskFromId(int dietId);

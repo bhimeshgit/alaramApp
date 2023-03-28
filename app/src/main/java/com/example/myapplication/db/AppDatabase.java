@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract OnDataBaseAction dataBaseAction();
+    public abstract DietDao dataBaseAction();
     private static volatile AppDatabase appDatabase;
 
     @NonNull
