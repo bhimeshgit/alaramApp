@@ -19,5 +19,6 @@ public class DietListAdminActivity extends AppCompatActivity {
 
     private void generateId() {
         dietListRecyclerView = findViewById(R.id.dietListRecyclerView);
+
     }
 }
