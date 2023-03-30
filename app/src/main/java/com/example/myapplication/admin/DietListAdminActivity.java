@@ -14,5 +14,5 @@ public class DietListAdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet_list_admin);
     }
-    
+
 }
