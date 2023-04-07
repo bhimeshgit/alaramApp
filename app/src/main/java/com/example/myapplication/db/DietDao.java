@@ -11,7 +11,7 @@ import java.util.List;
 public interface DietDao {
 
     @Query("SELECT * FROM "+DbConstance.DIET_TABLE)
-    LiveData<List<DietEntity>> getAllDietList();
+    List<DietEntity> getAllDietList();
 
     @Query("DELETE FROM "+ DbConstance.DIET_TABLE)
     void truncateTheList();
@@ -22,13 +22,18 @@ public interface DietDao {
     @Query("DELETE FROM "+DbConstance.DIET_TABLE+" WHERE dietId = :dietId")
     void deleteTaskFromId(int dietId);
 
-    @Query("SELECT * FROM "+DbConstance.DIET_TABLE+" WHERE age_range = :age_range_str")
-    DietEntity selectDataFromAnId(String age_range_str);
+    @Query("DELETE FROM "+DbConstance.DIET_TABLE)
+    void deleteAllData();
 
-    @Query("UPDATE "+DbConstance.DIET_TABLE+" SET  age_range = :age_range, " +
-            "breakfast = :breakfast, lunch = :lunch, dinner = :dinner, dinner_time = :dinner_time," +
-            " breakfast_time = :breakfast_time, lunch_time = :lunch_time WHERE dietId = :dietId")
-    void updateAnExistingRow(int dietId, String age_range, String breakfast , String lunch, String dinner,
-                             String breakfast_time, String lunch_time, String dinner_time);
+    @Query("SELECT * FROM "+DbConstance.DIET_TABLE+" WHERE bmi_range = :age_range_str")
+    DietEntity selectDiet(String age_range_str);
+
+    @Query("UPDATE "+DbConstance.DIET_TABLE+" SET  bmi_range = :age_range, " +
+            "morning_drink = :morning_drink, morning_breakfast = :morning_breakfast, " +
+            "lunch = :lunch, dinner = :dinner, evening_breakfast = :evening_breakfast," +
+            "exercise = :exercise, dinner = :dinner WHERE dietId = :dietId")
+    void updateAnExistingRow(int dietId, String age_range, String morning_drink,
+                             String morning_breakfast,  String lunch, String evening_breakfast,
+                             String dinner, String exercise);
 
 }

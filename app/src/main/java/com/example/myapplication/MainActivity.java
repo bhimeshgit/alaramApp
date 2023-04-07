@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.receiver.AlarmReceiver;
@@ -20,35 +21,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setAlarm();
+        TextView title = findViewById(R.id.title);
+        TextView message = findViewById(R.id.message);
+        String title_str = getIntent().getStringExtra("title");
+        String message_str = getIntent().getStringExtra("message");
+
+        title.setText(title_str);
+        message.setText(message_str);
     }
-
-    private void setAlarm(){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        intent.putExtra("any_data",123);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 15);  // set hour
-        cal.set(Calendar.MINUTE, 49);          // set minute
-        cal.set(Calendar.SECOND, 0);               // set seconds
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
-        }else{
-
-            String tag = "TAG";
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), tag, new AlarmManager.OnAlarmListener() {
-                    @Override
-                    public void onAlarm() {
-                        Toast.makeText(MainActivity.this, "AlarmManager.OnAlarmListener", Toast.LENGTH_SHORT).show();
-                    }
-                },null);
-            }
-        }
-    }
-
 
 }

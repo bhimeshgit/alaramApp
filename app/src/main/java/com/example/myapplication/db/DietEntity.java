@@ -11,22 +11,25 @@ public class DietEntity implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "dietId")
-    int dietId;
-    @ColumnInfo(name = "age_range")
-    String age_range;
-    @ColumnInfo(name = "breakfast")
-    String breakfast;
-    @ColumnInfo(name = "lunch")
-    String lunch;
-    @ColumnInfo(name = "dinner")
-    String dinner;
-    @ColumnInfo(name = "dinner_time")
-    String dinner_time;
-    @ColumnInfo(name = "breakfast_time")
-    String breakfast_time;
-    @ColumnInfo(name = "lunch_time")
-    String lunch_time;
+    public int dietId;
 
+    @ColumnInfo(name = "water")
+    public String water;
+    @ColumnInfo(name = "bmi_range")
+    public String bmi_range;
+    @ColumnInfo(name = "morning_drink")
+    public String morning_drink;
+    @ColumnInfo(name = "morning_breakfast")
+    public String morning_breakfast;
+    @ColumnInfo(name = "lunch")
+    public String lunch;
+    @ColumnInfo(name = "evening_breakfast")
+    public String evening_breakfast;
+    @ColumnInfo(name = "dinner")
+    public String dinner;
+
+    @ColumnInfo(name = "exercise")
+    public String exercise;
     public DietEntity() {
 
     }
