@@ -22,7 +22,13 @@ public interface UserDao {
     @Insert
     void insertUserData(User user);
 
-    @Update
-    void updateUserData(User user);
+
+    @Query("UPDATE "+DbConstance.USER_TABLE+" SET  name = :name, " +
+            "contact = :contact, gender = :gender, " +
+            "height = :height, weight = :weight, age = :age  WHERE user_id = :uid")
+    void updateUser(int uid, String name,
+                             String contact,  String gender, String height,
+                             String weight, String age);
+
 }
 

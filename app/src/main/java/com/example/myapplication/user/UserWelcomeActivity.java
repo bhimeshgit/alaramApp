@@ -79,5 +79,14 @@ public class UserWelcomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserWelcomeActivity.this, UserRegistrationActivity.class);
+                intent.putExtra("isLogin",true);
+                startActivity(intent);
+            }
+        });
     }
 }

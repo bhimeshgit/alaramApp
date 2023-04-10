@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.SetTimingActivity"
+    android:orientation="vertical"
+    android:layout_marginTop="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Morning drink"
+                android:layout_weight="1"
+                android:gravity="center">
+            </TextView>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <EditText
+                    android:id="@+id/morDrinkHr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Hours"
+                    android:ems="10"
+                    android:inputType="number" />
+                <EditText
+                    android:id="@+id/morDrinkMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Minutes"
+                    android:ems="10"
+                    android:inputType="number" />
+            </LinearLayout>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Morning Breakfast"
+            android:layout_weight="1"
+            android:gravity="center">
+        </TextView>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp">
+            <EditText
+                android:id="@+id/morBrHr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Hours"
+                android:ems="10"
+                android:inputType="number" />
+            <EditText
+                android:id="@+id/morBrMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Minutes"
+                android:ems="10"
+                android:inputType="number" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Lunch"
+            android:layout_weight="1"
+            android:gravity="center">
+        </TextView>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp">
+            <EditText
+                android:id="@+id/lunchHr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Hours"
+                android:ems="10"
+                android:inputType="number" />
+            <EditText
+                android:id="@+id/lunchMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Minutes"
+                android:ems="10"
+                android:inputType="number" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Evening Breakfast"
+            android:layout_weight="1"
+            android:gravity="center">
+        </TextView>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp">
+            <EditText
+                android:id="@+id/eveBrHr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Hours"
+                android:ems="10"
+                android:inputType="number" />
+            <EditText
+                android:id="@+id/eveBrMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Minutes"
+                android:ems="10"
+                android:inputType="number" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Dinner"
+            android:layout_weight="1"
+            android:gravity="center">
+        </TextView>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp">
+            <EditText
+                android:id="@+id/dinnerHr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Hours"
+                android:ems="10"
+                android:inputType="number" />
+            <EditText
+                android:id="@+id/dinnerMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Minutes"
+                android:ems="10"
+                android:inputType="number" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/setBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:text="Set Time" />
+
+</LinearLayout>
+</androidx.core.widget.NestedScrollView>

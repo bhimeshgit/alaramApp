@@ -20,6 +20,11 @@ public class UserRepository {
     public void addUser(User user){
         userDao.insertUserData(user);
     }
+
+    public void updateUser(User user){
+        userDao.updateUser(user.user_id, user.name,user.contact, user.gender, user.height, user.weight, user.age);
+
+    }
     public List<User> getUser(String contact){
         return userDao.getUser(contact);
     }

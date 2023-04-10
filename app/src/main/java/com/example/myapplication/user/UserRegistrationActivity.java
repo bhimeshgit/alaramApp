@@ -9,12 +9,14 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.db.User;
 import com.example.myapplication.utils.AppSettingSharePref;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,14 +26,59 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private Button regBtn;
     private RadioButton radioMale, radioFemale;
     private UserRepository userRepository;
+    private boolean isUpdateMode =false;
+    private TextView titleTv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
         getSupportActionBar().setTitle("User Registration");
-        checkUserLogin();
         initiateId();
         registerListener();
+        if(getIntent().hasExtra("isLogin")){
+            titleTv.setText("User Profile");
+            isUpdateMode =true;
+            regBtn.setText("Update");
+            setDataToFields();
+        }else {
+            isUpdateMode = false;
+            checkUserLogin();
+        }
+    }
+
+    private void setDataToFields() {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                UserRepository userRepository1 = new UserRepository(UserRegistrationActivity.this);
+                List<User> userList = userRepository1.getUserById(AppSettingSharePref.getInstance(UserRegistrationActivity.this).getUid());
+                if(userList!=null && userList.size() >0){
+                    User user = userList.get(0);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setUserInfo(user);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void setUserInfo(User user) {
+        etName.setText(user.name);
+        etMobile.setText(user.contact);
+        etAge.setText(user.age);
+        etWeight.setText(user.weight);
+        etHeight.setText(user.height);
+        if(user.gender.equals("male")){
+            radioMale.setChecked(true);
+            radioFemale.setChecked(false);
+        }else{
+            radioFemale.setChecked(true);
+            radioMale.setChecked(false);
+        }
     }
 
     private void checkUserLogin() {
@@ -51,7 +98,10 @@ public class UserRegistrationActivity extends AppCompatActivity {
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addUser();
+
+                    addUser();
+
+
             }
 
         });
@@ -86,7 +136,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         regBtn = findViewById(R.id.regBtn);
         radioMale = findViewById(R.id.radioMale);
         radioFemale = findViewById(R.id.radioFemale);
-
+        titleTv = findViewById(R.id.titleTv);
         userRepository = new UserRepository(UserRegistrationActivity.this);
     }
 
@@ -113,12 +163,21 @@ public class UserRegistrationActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    userRepository.addUser(user);
+                    if(isUpdateMode){
+                        user.user_id = AppSettingSharePref.getInstance(UserRegistrationActivity.this).getUid();
+                     userRepository.updateUser(user);
+                    } else {
+                        userRepository.addUser(user);
+                    }
                     int uid = userRepository.getUser(user.contact).get(0).user_id;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showToastAlert("User registered successfully");
+                            if(isUpdateMode){
+                                Toast.makeText(UserRegistrationActivity.this, "User detail updated successfully", Toast.LENGTH_SHORT).show();
+                            }else {
+                                showToastAlert("User registered successfully");
+                            }
                             AppSettingSharePref.getInstance(UserRegistrationActivity.this).setUsername(user.name);
                             AppSettingSharePref.getInstance(UserRegistrationActivity.this).setUid(uid);
                             goToWelcomeScreen();

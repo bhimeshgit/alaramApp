@@ -19,6 +19,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".admin.SetTimingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AdminLoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".user.UserDietActivity"
             android:exported="false" />
         <activity
@@ -30,8 +36,6 @@
         <activity
             android:name=".admin.DietListAdminActivity"
             android:exported="true">
-
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -39,7 +43,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -56,12 +59,13 @@
 
         <activity
             android:name=".user.UserRegistrationActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

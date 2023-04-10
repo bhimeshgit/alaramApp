@@ -25,8 +25,10 @@ import com.example.myapplication.R;
 import com.example.myapplication.admin.Callback;
 import com.example.myapplication.admin.DietAddUpdateActivity;
 import com.example.myapplication.admin.DietAdminRepository;
+import com.example.myapplication.admin.SetTimingActivity;
 import com.example.myapplication.admin.viewmodel.DietAdminViewModel;
 import com.example.myapplication.db.DietEntity;
+import com.example.myapplication.db.User;
 import com.example.myapplication.receiver.AlarmReceiver;
 import com.example.myapplication.utils.AppSettingSharePref;
 import com.example.myapplication.utils.JsonParserVolley;
@@ -46,11 +48,12 @@ public class UserDietActivity extends AppCompatActivity {
     private AutoCompleteTextView ageAutoTxtView;
     private EditText edt_water, edt_morning, edt_morning_break, edt_lunch, edt_eve_break, edt_dinner, edt_exercise;
 
-    private Button alarmBtn;
+    private Button alarmBtn, btnSetTime;
     private ProgressDialog pDialog;
     private float userBmi = 0;
     private String userBmiRange = "";
     private DietAdminRepository dietAdminRepository;
+    private  AppSettingSharePref appSeting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,12 +70,14 @@ public class UserDietActivity extends AppCompatActivity {
         edt_exercise = findViewById(R.id.edt_exercise);
         alarmBtn = findViewById(R.id.btnAdd);
         dietAdminRepository = new DietAdminRepository(this);
+        appSeting = AppSettingSharePref.getInstance(UserDietActivity.this);
 
         if (getIntent().hasExtra("bmi")){
             userBmi = getIntent().getFloatExtra("bmi", 0);
         }
         setAlarmButton();
         fetchDietFromServer();
+
     }
 
     private void setAlarmButton() {
@@ -143,8 +148,8 @@ public class UserDietActivity extends AppCompatActivity {
             pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 8);  // set hour
-        cal.set(Calendar.MINUTE, 28);          // set minute
+        cal.set(Calendar.HOUR_OF_DAY, appSeting.getMorDrinkHr());  // set hour
+        cal.set(Calendar.MINUTE, appSeting.getMorDrinkMin());          // set minute
         cal.set(Calendar.SECOND, 0);               // set seconds
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),24*60*60*1000,pendingIntent);
     }
@@ -161,8 +166,8 @@ public class UserDietActivity extends AppCompatActivity {
             pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 8);  // set hour
-        cal.set(Calendar.MINUTE, 29);          // set minute
+        cal.set(Calendar.HOUR_OF_DAY, appSeting.getMorBreakHr());  // set hour
+        cal.set(Calendar.MINUTE, appSeting.getMorBreakMin());          // set minute
         cal.set(Calendar.SECOND, 0);               // set seconds
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),24*60*60*1000,pendingIntent);
     }
@@ -178,8 +183,8 @@ public class UserDietActivity extends AppCompatActivity {
             pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 8);  // set hour
-        cal.set(Calendar.MINUTE, 30);          // set minute
+        cal.set(Calendar.HOUR_OF_DAY, appSeting.getLunchHr());  // set hour
+        cal.set(Calendar.MINUTE, appSeting.getLunchMin());          // set minute
         cal.set(Calendar.SECOND, 0);               // set seconds
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),24*60*60*1000,pendingIntent);
     }
@@ -195,8 +200,8 @@ public class UserDietActivity extends AppCompatActivity {
             pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 3, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 8);  // set hour
-        cal.set(Calendar.MINUTE, 31);          // set minute
+        cal.set(Calendar.HOUR_OF_DAY, appSeting.getEveBreakHr());  // set hour
+        cal.set(Calendar.MINUTE, appSeting.getEveBreakMin());          // set minute
         cal.set(Calendar.SECOND, 0);               // set seconds
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),24*60*60*1000,pendingIntent);
     }
@@ -212,8 +217,8 @@ public class UserDietActivity extends AppCompatActivity {
             pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 4, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         }
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 8);  // set hour
-        cal.set(Calendar.MINUTE, 32);          // set minute
+        cal.set(Calendar.HOUR_OF_DAY, appSeting.getDinnerHr());  // set hour
+        cal.set(Calendar.MINUTE, appSeting.getDinnerMin());          // set minute
         cal.set(Calendar.SECOND, 0);               // set seconds
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),24*60*60*1000,pendingIntent);
     }
@@ -279,6 +284,21 @@ public class UserDietActivity extends AppCompatActivity {
                                 dietEntity.exercise = jsonObject1.get("exercise").toString();
                                 dietEntityList.add(dietEntity);
                                 dietAdminRepository.addDiet(dietEntity);
+                            }
+                            AppSettingSharePref appSet = AppSettingSharePref.getInstance(UserDietActivity.this);
+                            JSONArray jsonArrayTime = jsonObject.getJSONArray("time");
+                            for (int i = 0; i < jsonArrayTime.length(); i++) {
+                                JSONObject jsonObject1 = jsonArrayTime.getJSONObject(i);
+                                appSet.setMorDrinkHr(Integer.parseInt(jsonObject1.get("mor_drink_hr").toString()));
+                                appSet.setMorDrinkMin(Integer.parseInt(jsonObject1.get("mor_drink_min").toString()));
+                                appSet.setMorBreakHr(Integer.parseInt(jsonObject1.get("mor_break_hr").toString()));
+                                appSet.setMorBreakMin(Integer.parseInt(jsonObject1.get("mor_break_min").toString()));
+                                appSet.setLunchHr(Integer.parseInt(jsonObject1.get("lunch_hr").toString()));
+                                appSet.setLunchMin(Integer.parseInt(jsonObject1.get("lunch_min").toString()));
+                                appSet.setEveBreakHr(Integer.parseInt(jsonObject1.get("eve_br_hr").toString()));
+                                appSet.setEveBreakMin(Integer.parseInt(jsonObject1.get("eve_br_min").toString()));
+                                appSet.setDinnerHr(Integer.parseInt(jsonObject1.get("dineer_hr").toString()));
+                                appSet.setDinnerMin(Integer.parseInt(jsonObject1.get("dinner_min").toString()));
                             }
                         }
                         runOnUiThread(new Runnable() {

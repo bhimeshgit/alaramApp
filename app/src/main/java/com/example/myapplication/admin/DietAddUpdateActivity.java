@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import com.android.volley.Request;
 import com.example.myapplication.R;
 import com.example.myapplication.admin.viewmodel.DietAdminViewModel;
 import com.example.myapplication.db.DietEntity;
+import com.example.myapplication.user.UserDietActivity;
 import com.example.myapplication.utils.JsonParserVolley;
 import com.example.myapplication.utils.WebUrl;
 
@@ -39,7 +41,7 @@ public class DietAddUpdateActivity extends AppCompatActivity {
     private Callback callback;
     private boolean isUpdateMode = false;
     private DietEntity dietEntityReceived;
-    private Button addBtn;
+    private Button addBtn,btnSetTime;
     private ProgressDialog pDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,8 @@ public class DietAddUpdateActivity extends AppCompatActivity {
 
         }
         ageAutoTxtView.setEnabled(false);
+
+
     }
 
     @Override

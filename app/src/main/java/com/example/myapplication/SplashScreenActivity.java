@@ -6,9 +6,12 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.admin.AdminLoginActivity;
 import com.example.myapplication.user.UserRegistrationActivity;
 import com.example.myapplication.user.UserWelcomeActivity;
 import com.example.myapplication.utils.AppSettingSharePref;
+import com.example.myapplication.utils.WebUrl;
+
 //	bmi_range	morning_drink	morning_break	lunch	evening_break	dinner	exercise
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -26,12 +29,17 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                if (!AppSettingSharePref.getInstance(SplashScreenActivity.this).getUserName().trim().equals("")) {
-                    Intent i = new Intent(SplashScreenActivity.this, UserWelcomeActivity.class);
+                if (WebUrl.User_Session == 1){
+                    Intent i = new Intent(SplashScreenActivity.this, AdminLoginActivity.class);
                     startActivity(i);
                 } else {
-                    Intent i = new Intent(SplashScreenActivity.this, UserRegistrationActivity.class);
-                    startActivity(i);
+                    if (!AppSettingSharePref.getInstance(SplashScreenActivity.this).getUserName().trim().equals("")) {
+                        Intent i = new Intent(SplashScreenActivity.this, UserWelcomeActivity.class);
+                        startActivity(i);
+                    } else {
+                        Intent i = new Intent(SplashScreenActivity.this, UserRegistrationActivity.class);
+                        startActivity(i);
+                    }
                 }
 
                 // close this activity
