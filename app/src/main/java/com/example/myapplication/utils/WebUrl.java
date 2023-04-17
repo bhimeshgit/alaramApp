@@ -8,7 +8,7 @@ public class WebUrl {
 
     public static final  String GET_USER_DIET = BASE_URl+"getUserDiet.php";
 
-    public static final String ADMIN_MOBILE = "8378970080";
+    public static final String ADMIN_MOBILE = "9168429827";
 
     public static final String ADMIN_PASS = "123";
 

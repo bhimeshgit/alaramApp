@@ -131,7 +131,7 @@ public class DietAddUpdateActivity extends AppCompatActivity {
             String dinner = edt_dinner.getText().toString();
             String exercise = edt_exercise.getText().toString();
             if (ageRange.trim().equals("")) {
-                Toast.makeText(DietAddUpdateActivity.this, "Please select the age range", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DietAddUpdateActivity.this, "Please select the BMI range", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (water.trim().equals("")) {
